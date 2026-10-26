@@ -149,11 +149,13 @@ class CADEngine:
         
         namespace = {"__builtins__": safe_builtins}
         
-        # Import build123d into namespace
+        # Import build123d into namespace (here, since the sandbox has no __import__)
         try:
-            exec("from build123d import *", namespace)
+            import build123d
         except ImportError as e:
             raise RuntimeError(f"build123d not available: {e}")
+        public = getattr(build123d, "__all__", None) or [n for n in dir(build123d) if not n.startswith("_")]
+        namespace.update({n: getattr(build123d, n) for n in public})
         
         # Add numpy for parametric work
         namespace["np"] = np

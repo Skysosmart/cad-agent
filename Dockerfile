@@ -39,7 +39,7 @@ WORKDIR /app
 
 # Install Python dependencies (OCP wheel is ~60MB, cache this layer)
 COPY requirements.txt .
-RUN pip install --no-cache-dir --upgrade pip && \
+RUN pip install --no-cache-dir --upgrade pip "setuptools>=84.1.0" && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy application code

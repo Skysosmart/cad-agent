@@ -2,7 +2,7 @@ services:
   cad-agent:
     build: .
     ports:
-      - "8123:8123"
+      - "127.0.0.1:8123:8123"
     volumes:
       - ./workspace:/workspace
       - ./renders:/renders
@@ -16,7 +16,7 @@ services:
   cad-agent-dev:
     build: .
     ports:
-      - "8124:8123"
+      - "127.0.0.1:8124:8123"
     volumes:
       - ./src:/app/src
       - ./workspace:/workspace
