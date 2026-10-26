@@ -18,6 +18,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     fonts-dejavu-core \
     fonts-dejavu-extra \
     pkg-config \
+    procps \
     # VTK/headless rendering dependencies
     xvfb \
     libosmesa6 \

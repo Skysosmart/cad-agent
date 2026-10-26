@@ -71,17 +71,17 @@ class CADEngine:
         self.models: dict[str, ModelState] = {}
         self.active_model: Optional[str] = None
     
-    def execute_code(self, code: str, model_name: str = \"default\") -> dict:
-        \"\"\"
+    def execute_code(self, code: str, model_name: str = "default") -> dict:
+        """
         Execute build123d code in a sandboxed namespace.
         
         Returns dict with: success, result_shape, output, error, geometry_info
-        \"\"\"
+        """
         # Basic static analysis for dangerous keywords
         blacklist = ['import ', 'eval(', 'exec(', 'os.', 'subprocess', 'open(', 'write(', 'read(', 'socket']
         for word in blacklist:
             if word in code:
-                return {\"success\": False, \"output\": \"\", \"error\": f\"Security Error: Forbidden keyword '{word}' detected.\", \"geometry\": None}
+                return {"success": False, "output": "", "error": f"Security Error: Forbidden keyword '{word}' detected.", "geometry": None}
 
         # Capture stdout/stderr
         old_stdout, old_stderr = sys.stdout, sys.stderr
@@ -130,7 +130,7 @@ class CADEngine:
         return result
     
     def _build_namespace(self) -> dict:
-        \"\"\"Build the execution namespace with restricted build123d imports.\"\"\"
+        """Build the execution namespace with restricted build123d imports."""
         # Restricted builtins
         safe_builtins = {
             'abs': abs, 'all': all, 'any': any, 'bin': bin, 'bool': bool,
@@ -147,7 +147,7 @@ class CADEngine:
             '__name__': '__main__', '__doc__': None, '__package__': None,
         }
         
-        namespace = {\"__builtins__\": safe_builtins}
+        namespace = {"__builtins__": safe_builtins}
         
         # Import build123d into namespace
         try:
